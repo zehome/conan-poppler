@@ -64,7 +64,7 @@ class LibpopplerConan(ConanFile):
             self.requires.add("cairo/1.15.14@bincrafters/stable")
             self.requires.add("glib/2.56.1@bincrafters/stable")
         if self.settings.os == "Windows" and not self.options.with_splash:
-            raise ConanInvalidConfiguration("Splash is mandatory on windows")
+            raise ConanInvalidConfiguration("Option with_splash=True is mandatory on windows")
         if self.options.with_curl:  # TODO: does not link on windows / shared=False
             self.requires.add("libcurl/7.61.1@bincrafters/stable")
 
@@ -82,10 +82,10 @@ class LibpopplerConan(ConanFile):
                   os.path.join(self._source_subfolder, "CMakeListsOriginal.txt"))
         shutil.copy("CMakeLists.txt",
                     os.path.join(self._source_subfolder, "CMakeLists.txt"))
-        if self.settings.os == "Windows":
-            tools.patch(
-                self._source_subfolder,
-                patch_file=os.path.join("patches", "poppler-export.diff"), strip=1)
+        # if self.settings.os == "Windows":
+        #     tools.patch(
+        #         self._source_subfolder,
+        #         patch_file=os.path.join("patches", "poppler-export.diff"), strip=1)
 
     def _configure_cmake(self):
         cmake = CMake(self)
