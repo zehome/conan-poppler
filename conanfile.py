@@ -39,7 +39,7 @@ class LibpopplerConan(ConanFile):
         "cairo:shared=False",
         "glib:shared=False",
         "libcurl:shared=False", "OpenSSL:shared=False",
-        "Qt:opengl=desktop", "Qt:qtxmlpatterns=True", "Qt:shared=True",
+        "qt:opengl=desktop", "qt:qtxmlpatterns=True", "qt:shared=True",
     )
 
     requires = (
@@ -59,7 +59,7 @@ class LibpopplerConan(ConanFile):
         if self.options.with_lcms:
             self.requires.add("lcms/2.9@bincrafters/stable")
         if self.options.with_qt:
-            self.requires.add("Qt/5.11.2@bincrafters/testing")
+            self.requires.add("qt/5.12.0@clarisys/stable")
         if self.settings.os != "Windows" and self.options.with_cairo:
             self.requires.add("cairo/1.15.14@bincrafters/stable")
             self.requires.add("glib/2.56.1@bincrafters/stable")
@@ -82,10 +82,6 @@ class LibpopplerConan(ConanFile):
                   os.path.join(self._source_subfolder, "CMakeListsOriginal.txt"))
         shutil.copy("CMakeLists.txt",
                     os.path.join(self._source_subfolder, "CMakeLists.txt"))
-        # if self.settings.os == "Windows":
-        #     tools.patch(
-        #         self._source_subfolder,
-        #         patch_file=os.path.join("patches", "poppler-export.diff"), strip=1)
 
     def _configure_cmake(self):
         cmake = CMake(self)
