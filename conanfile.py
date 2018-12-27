@@ -9,7 +9,7 @@ import shutil
 
 class LibpopplerConan(ConanFile):
     name = "poppler"
-    version = "0.71.0"
+    version = "0.72.0"
     description = "Poppler is a PDF rendering library based on the xpdf-3.0 code base"
     topics = ("conan", "libpoppler", "poppler", "pdf")
     url = "https://github.com/zehome/conan-poppler"
@@ -21,7 +21,7 @@ class LibpopplerConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
 
     _source_subfolder = "poppler-src"
-    
+
     options = {
         "shared": [True, False], "with_lcms": [True, False],
         "with_cpp": [True, False], "with_cairo": [True, False],
@@ -33,7 +33,8 @@ class LibpopplerConan(ConanFile):
         "with_cairo=False", "with_curl=False",
         #LC: Specific
         "libpng:shared=False",
-        "freetype:with_png=False", "freetype:shared=False", "freetype:with_zlib=False",
+        "freetype:with_png=False", "freetype:shared=False",
+        "freetype:with_zlib=False", "freetype:with_bzip2=False",
         "zlib:shared=False",
         "openjpeg:shared=False",
         "cairo:shared=False",
