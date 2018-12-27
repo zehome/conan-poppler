@@ -17,4 +17,4 @@ conan:
     <<: *conantemplate
     script:
         - conan create . clarisys/stable -pr=clarilabenv --build=missing
-        - conan upload conan-poppler/*@clarisys/stable -r clarisys -c --all
+        - conan upload poppler/*@clarisys/stable -r clarisys -c --all
