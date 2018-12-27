@@ -1,0 +1,20 @@
+.conantemplate: &conantemplate
+    tags: [ windowsx64 ]
+    variables:
+        CONAN: C:\Program Files\Conan\conan
+        PYTHON_DIR: C:\ProgramData\Python\Python372
+        QT_DIR: E:\Qt\5.12.0\msvc2017_64
+        CONAN_USER_HOME: E:\.conan-clarilabautoupdate
+        CONAN_USER_HOME_SHORT: E:\.csa
+    before_script:
+        - set PATH=%CONAN%;%PYTHON_DIR%;%PATH%
+        - conan remote add conan-center https://conan.bintray.com -f
+        - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan -f
+        - conan remote add clarisys https://conan.clarisys.fr -f
+        - conan user -r clarisys clarisys
+
+conan:
+    <<: *conantemplate
+    script:
+        - conan create . clarisys/stable -pr=clarilabenv --build=missing
+        - conan upload conan-poppler/*@clarisys/stable -r clarisys -c --all
