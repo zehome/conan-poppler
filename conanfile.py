@@ -9,7 +9,7 @@ import shutil
 
 class LibpopplerConan(ConanFile):
     name = "poppler"
-    version = "0.72.0"
+    version = "0.73.0"
     description = "Poppler is a PDF rendering library based on the xpdf-3.0 code base"
     topics = ("conan", "libpoppler", "poppler", "pdf")
     url = "https://github.com/zehome/conan-poppler"
@@ -32,24 +32,24 @@ class LibpopplerConan(ConanFile):
         "shared=False", "with_qt=False", "with_lcms=False", "with_cpp=False",
         "with_cairo=False", "with_curl=False",
         #LC: Specific
-        "libpng:shared=False",
-        "freetype:with_png=False", "freetype:shared=False",
-        "freetype:with_zlib=False", "freetype:with_bzip2=False",
-        "zlib:shared=False",
-        "openjpeg:shared=False",
-        "cairo:shared=False",
-        "glib:shared=False",
-        "libcurl:shared=False", "OpenSSL:shared=False",
+        # "libpng:shared=False",
+        # "freetype:with_png=False", "freetype:shared=False",
+        # "freetype:with_zlib=False", "freetype:with_bzip2=False",
+        # "zlib:shared=False",
+        # "openjpeg:shared=False",
+        # "cairo:shared=False",
+        # "glib:shared=False",
+        # "libcurl:shared=False", "OpenSSL:shared=False",
         "qt:opengl=desktop", "qt:qtxmlpatterns=True", "qt:shared=True",
     )
 
     requires = (
         "zlib/1.2.11@conan/stable",
-        "libpng/1.6.34@bincrafters/stable",
+        "libpng/1.6.36@bincrafters/stable",
         "libjpeg/9c@bincrafters/stable",
         "openjpeg/2.3.0@bincrafters/stable",
         "libtiff/4.0.9@bincrafters/stable",
-        "freetype/2.9.0@bincrafters/stable",
+        "freetype/2.9.1@clarisys/stable",
     )
 
     def config_options(self):
@@ -68,6 +68,9 @@ class LibpopplerConan(ConanFile):
             raise ConanInvalidConfiguration("Option with_splash=True is mandatory on windows")
         if self.options.with_curl:  # TODO: does not link on windows / shared=False
             self.requires.add("libcurl/7.61.1@bincrafters/stable")
+        # if self.settings.os != "Windows":
+        #     self.requires.add("fontconfig/2.13.1@clarisys/stable")
+
 
     def source(self):
         source_url = "https://poppler.freedesktop.org/"
